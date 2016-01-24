@@ -141,7 +141,9 @@ ngx_http_lua_socket_udp(lua_State *L)
                                | NGX_HTTP_LUA_CONTEXT_ACCESS
                                | NGX_HTTP_LUA_CONTEXT_CONTENT
                                | NGX_HTTP_LUA_CONTEXT_TIMER
-                               | NGX_HTTP_LUA_CONTEXT_SSL_CERT);
+                               | NGX_HTTP_LUA_CONTEXT_SSL_CERT
+                               | NGX_HTTP_LUA_CONTEXT_SSL_DECRYPT
+                               | NGX_HTTP_LUA_CONTEXT_SSL_SIGN);
 
     lua_createtable(L, 3 /* narr */, 1 /* nrec */);
     lua_pushlightuserdata(L, &ngx_http_lua_socket_udp_metatable_key);
@@ -202,7 +204,9 @@ ngx_http_lua_socket_udp_setpeername(lua_State *L)
                                | NGX_HTTP_LUA_CONTEXT_ACCESS
                                | NGX_HTTP_LUA_CONTEXT_CONTENT
                                | NGX_HTTP_LUA_CONTEXT_TIMER
-                               | NGX_HTTP_LUA_CONTEXT_SSL_CERT);
+                               | NGX_HTTP_LUA_CONTEXT_SSL_CERT
+                               | NGX_HTTP_LUA_CONTEXT_SSL_DECRYPT
+                               | NGX_HTTP_LUA_CONTEXT_SSL_SIGN);
 
     luaL_checktype(L, 1, LUA_TTABLE);
 

@@ -353,7 +353,9 @@ ngx_http_lua_ffi_semaphore_wait(ngx_http_request_t *r,
                                         | NGX_HTTP_LUA_CONTEXT_ACCESS
                                         | NGX_HTTP_LUA_CONTEXT_CONTENT
                                         | NGX_HTTP_LUA_CONTEXT_TIMER
-                                        | NGX_HTTP_LUA_CONTEXT_SSL_CERT,
+                                        | NGX_HTTP_LUA_CONTEXT_SSL_CERT
+                                        | NGX_HTTP_LUA_CONTEXT_SSL_DECRYPT
+                                        | NGX_HTTP_LUA_CONTEXT_SSL_SIGN,
                                         err, errlen);
 
     if (rc != NGX_OK) {

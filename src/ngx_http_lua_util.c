@@ -50,6 +50,8 @@
 #include "ngx_http_lua_worker.h"
 #include "ngx_http_lua_socket_tcp.h"
 #include "ngx_http_lua_ssl_certby.h"
+#include "ngx_http_lua_ssl_decryptby.h"
+#include "ngx_http_lua_ssl_signby.h"
 
 
 #if 1
@@ -3549,6 +3551,8 @@ ngx_http_lua_finalize_fake_request(ngx_http_request_t *r, ngx_int_t rc)
     ngx_ssl_conn_t            *ssl_conn;
 
     ngx_http_lua_ssl_cert_ctx_t     *cctx;
+    ngx_http_lua_ssl_decrypt_ctx_t  *decrypt_cctx;
+    ngx_http_lua_ssl_sign_ctx_t     *sign_cctx;
 #endif
 
     c = r->connection;
@@ -3575,6 +3579,18 @@ ngx_http_lua_finalize_fake_request(ngx_http_request_t *r, ngx_int_t rc)
                     cctx = ngx_http_lua_ssl_get_ctx(c->ssl->connection);
                     if (cctx != NULL) {
                         cctx->exit_code = 0;
+                    }
+
+                    decrypt_cctx = ngx_http_lua_ssl_get_decrypt_ctx(
+                            c->ssl->connection);
+                    if (decrypt_cctx != NULL) {
+                        decrypt_cctx->exit_code = 0;
+                    }
+
+                    sign_cctx = ngx_http_lua_ssl_get_sign_ctx(
+                            c->ssl->connection);
+                    if (sign_cctx != NULL) {
+                        sign_cctx->exit_code = 0;
                     }
                 }
             }

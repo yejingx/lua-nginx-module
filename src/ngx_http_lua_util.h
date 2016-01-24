@@ -87,6 +87,8 @@ extern char ngx_http_lua_headers_metatable_key;
      : (c) == NGX_HTTP_LUA_CONTEXT_INIT_WORKER ? "init_worker_by_lua*"       \
      : (c) == NGX_HTTP_LUA_CONTEXT_BALANCER ? "balancer_by_lua*"             \
      : (c) == NGX_HTTP_LUA_CONTEXT_SSL_CERT ? "ssl_certificate_by_lua*"      \
+     : (c) == NGX_HTTP_LUA_CONTEXT_SSL_DECRYPT ? "ssl_decrypt_by_lua*"       \
+     : (c) == NGX_HTTP_LUA_CONTEXT_SSL_SIGN ? "ssl_sign_by_lua*"             \
      : "(unknown)")
 
 
@@ -131,6 +133,14 @@ ngx_http_lua_ffi_check_context(ngx_http_lua_ctx_t *ctx, unsigned flags,
 
 #define ngx_http_lua_ssl_get_ctx(ssl_conn)                                   \
     SSL_get_ex_data(ssl_conn, ngx_http_lua_ssl_ctx_index)
+
+
+#define ngx_http_lua_ssl_get_decrypt_ctx(ssl_conn)                           \
+    SSL_get_ex_data(ssl_conn, ngx_http_lua_ssl_decrypt_ctx_index)
+
+
+#define ngx_http_lua_ssl_get_sign_ctx(ssl_conn)                              \
+    SSL_get_ex_data(ssl_conn, ngx_http_lua_ssl_sign_ctx_index)
 
 
 lua_State *ngx_http_lua_init_vm(lua_State *parent_vm, ngx_cycle_t *cycle,
@@ -434,6 +444,8 @@ ngx_http_lua_get_flush_chain(ngx_http_request_t *r, ngx_http_lua_ctx_t *ctx)
 extern ngx_uint_t  ngx_http_lua_location_hash;
 extern ngx_uint_t  ngx_http_lua_content_length_hash;
 extern int         ngx_http_lua_ssl_ctx_index;
+extern int         ngx_http_lua_ssl_decrypt_ctx_index;
+extern int         ngx_http_lua_ssl_sign_ctx_index;
 
 
 #endif /* _NGX_HTTP_LUA_UTIL_H_INCLUDED_ */

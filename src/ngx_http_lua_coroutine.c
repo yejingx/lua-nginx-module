@@ -77,7 +77,9 @@ ngx_http_lua_coroutine_create_helper(lua_State *L, ngx_http_request_t *r,
                                | NGX_HTTP_LUA_CONTEXT_ACCESS
                                | NGX_HTTP_LUA_CONTEXT_CONTENT
                                | NGX_HTTP_LUA_CONTEXT_TIMER
-                               | NGX_HTTP_LUA_CONTEXT_SSL_CERT);
+                               | NGX_HTTP_LUA_CONTEXT_SSL_CERT
+                               | NGX_HTTP_LUA_CONTEXT_SSL_DECRYPT
+                               | NGX_HTTP_LUA_CONTEXT_SSL_SIGN);
 
     vm = ngx_http_lua_get_lua_vm(r, ctx);
 
@@ -153,7 +155,9 @@ ngx_http_lua_coroutine_resume(lua_State *L)
                                | NGX_HTTP_LUA_CONTEXT_ACCESS
                                | NGX_HTTP_LUA_CONTEXT_CONTENT
                                | NGX_HTTP_LUA_CONTEXT_TIMER
-                               | NGX_HTTP_LUA_CONTEXT_SSL_CERT);
+                               | NGX_HTTP_LUA_CONTEXT_SSL_CERT
+                               | NGX_HTTP_LUA_CONTEXT_SSL_DECRYPT
+                               | NGX_HTTP_LUA_CONTEXT_SSL_SIGN);
 
     p_coctx = ctx->cur_co_ctx;
     if (p_coctx == NULL) {
@@ -213,7 +217,9 @@ ngx_http_lua_coroutine_yield(lua_State *L)
                                | NGX_HTTP_LUA_CONTEXT_ACCESS
                                | NGX_HTTP_LUA_CONTEXT_CONTENT
                                | NGX_HTTP_LUA_CONTEXT_TIMER
-                               | NGX_HTTP_LUA_CONTEXT_SSL_CERT);
+                               | NGX_HTTP_LUA_CONTEXT_SSL_CERT
+                               | NGX_HTTP_LUA_CONTEXT_SSL_DECRYPT
+                               | NGX_HTTP_LUA_CONTEXT_SSL_SIGN);
 
     coctx = ctx->cur_co_ctx;
 
@@ -362,7 +368,9 @@ ngx_http_lua_coroutine_status(lua_State *L)
                                | NGX_HTTP_LUA_CONTEXT_ACCESS
                                | NGX_HTTP_LUA_CONTEXT_CONTENT
                                | NGX_HTTP_LUA_CONTEXT_TIMER
-                               | NGX_HTTP_LUA_CONTEXT_SSL_CERT);
+                               | NGX_HTTP_LUA_CONTEXT_SSL_CERT
+                               | NGX_HTTP_LUA_CONTEXT_SSL_DECRYPT
+                               | NGX_HTTP_LUA_CONTEXT_SSL_SIGN);
 
     coctx = ngx_http_lua_get_co_ctx(co, ctx);
     if (coctx == NULL) {

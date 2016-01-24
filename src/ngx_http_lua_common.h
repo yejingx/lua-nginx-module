@@ -107,6 +107,8 @@ typedef struct {
 #define NGX_HTTP_LUA_CONTEXT_INIT_WORKER    0x100
 #define NGX_HTTP_LUA_CONTEXT_BALANCER       0x200
 #define NGX_HTTP_LUA_CONTEXT_SSL_CERT       0x400
+#define NGX_HTTP_LUA_CONTEXT_SSL_DECRYPT    0x800
+#define NGX_HTTP_LUA_CONTEXT_SSL_SIGN       0x1000
 
 
 #ifndef NGX_LUA_NO_FFI_API
@@ -194,21 +196,23 @@ struct ngx_http_lua_main_conf_s {
 };
 
 
+typedef struct {
+    ngx_http_lua_srv_conf_handler_pt     handler;
+    ngx_str_t                            src;
+    u_char                              *src_key;
+} ngx_http_lua_srv_handler_t;
+
+
 union ngx_http_lua_srv_conf_u {
 #if (NGX_HTTP_SSL)
     struct {
-        ngx_http_lua_srv_conf_handler_pt     cert_handler;
-        ngx_str_t                            cert_src;
-        u_char                              *cert_src_key;
+        ngx_http_lua_srv_handler_t  cert;
+        ngx_http_lua_srv_handler_t  decrypt;
+        ngx_http_lua_srv_handler_t  sign;
     } ssl;
 #endif
 
-    struct {
-        ngx_str_t           src;
-        u_char             *src_key;
-
-        ngx_http_lua_srv_conf_handler_pt  handler;
-    } balancer;
+    ngx_http_lua_srv_handler_t  balancer;
 };
 
 
